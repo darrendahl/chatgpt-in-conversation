@@ -75,4 +75,10 @@
     font-size: 0.8rem;
     padding: 8px 16px;
   }
+
+  .container,
+  .main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
