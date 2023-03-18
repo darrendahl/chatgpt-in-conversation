@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   const [conversation, setConversation] = useState<any>([]);
   const [topic, setTopic] = useState<any>("life");
+  const [conversationRunning, setConversationRunning] = useState<any>(true);
 
   async function generateReply(prompt: any) {
     try {
@@ -19,9 +20,10 @@ export default function Home() {
   async function simulateConversation() {
     setConversation([]);
 
-    let prompt = `ChatGPT, start a conversation with yourself about ${topic}.`;
-    while (true) {
+    let prompt = `${topic}`;
+    while (conversationRunning) {
       const reply = await generateReply(prompt);
+      console.log(reply)
       if (!reply) break;
 
       setConversation((prevConversation: any) => [...prevConversation, reply]);
@@ -40,7 +42,7 @@ export default function Home() {
           ))}
         </div>
 
-        <label>ChatGPT, start a conversation with yourself about: </label>
+        <label>Prompt:</label>
         <input
           type="text"
           value={topic}
@@ -49,6 +51,10 @@ export default function Home() {
 
         <button className={styles.button} onClick={simulateConversation}>
           Start Conversation
+        </button>
+
+        <button className={styles.button} onClick={() => setConversationRunning(false)}>
+          Stop Conversation
         </button>
       </main>
     </div>

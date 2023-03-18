@@ -22,6 +22,8 @@ export default async function handler(req: any, res: any) {
         }
       );
 
+      console.log(response)
+
       const reply = response.data.choices[0].text.trim();
       res.status(200).json({ reply });
     } catch (error) {
