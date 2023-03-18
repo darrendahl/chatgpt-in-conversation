@@ -1,24 +1,25 @@
-import { useState } from 'react';
-import axios from 'axios';
-import styles from '../styles/Home.module.css';
+import { useState } from "react";
+import axios from "axios";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [conversation, setConversation] = useState<any>([]);
+  const [topic, setTopic] = useState<any>("life");
 
   async function generateReply(prompt: any) {
     try {
-      const response = await axios.post('/api/generate', { prompt });
+      const response = await axios.post("/api/generate", { prompt });
       return response.data.reply;
     } catch (error) {
       console.error(error);
-      return '';
+      return "";
     }
   }
 
   async function simulateConversation() {
     setConversation([]);
 
-    let prompt = 'ChatGPT, start a conversation with yourself.';
+    let prompt = `ChatGPT, start a conversation with yourself about ${topic}.`;
     while (true) {
       const reply = await generateReply(prompt);
       if (!reply) break;
@@ -38,6 +39,13 @@ export default function Home() {
             <p key={index}>{message}</p>
           ))}
         </div>
+
+        <label>ChatGPT, start a conversation with yourself about: </label>
+        <input
+          type="text"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
 
         <button className={styles.button} onClick={simulateConversation}>
           Start Conversation
