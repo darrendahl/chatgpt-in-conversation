@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "../styles/Home.module.css";
-const prompt =
-  'ChatGPT, you are conversing with yourself.';
+const prompt = "ChatGPT, you are talking to yourself.";
 
 export default function Home() {
   const [conversation, setConversation] = useState<any>([]);
   const [topic, setTopic] = useState<any>(prompt);
   const [conversationRunning, setConversationRunning] = useState<any>(true);
+  const [isLoading, setIsLoading] = useState<any>(false);
 
   async function generateReply(prompt: any) {
     try {
@@ -24,7 +24,9 @@ export default function Home() {
 
     let prompt = `${topic}`;
     while (conversationRunning) {
+      setIsLoading(true);
       const reply = await generateReply(prompt);
+      setIsLoading(false);
       if (!reply) break;
 
       setConversation((prevConversation: any) => [...prevConversation, reply]);
@@ -39,7 +41,9 @@ export default function Home() {
 
         <div className={styles.chatbox}>
           {conversation.map((message: any, index: any) => (
-            <p style={{marginTop: 24}} key={index}>{message}</p>
+            <p style={{ marginTop: 24 }} key={index}>
+              {message}
+            </p>
           ))}
         </div>
 
@@ -55,12 +59,9 @@ export default function Home() {
             Start Conversation
           </button>
 
-          {/* <button
-            className={styles.button}
-            onClick={() => setConversationRunning(false)}
-          >
-            Stop Conversation
-          </button> */}
+          {isLoading && <p>ChatGPT is talking to itself :)</p>}
+
+          {!isLoading && !!conversation.length && <p>Conversation over :(</p>}
         </div>
       </main>
     </div>
