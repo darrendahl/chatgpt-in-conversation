@@ -49,7 +49,7 @@ export default function Home() {
 
         <label style={{fontSize: 16, marginTop: 12}}>Prompt:</label>
         <textarea
-          style={{ height: 120, width: 500 }}
+          style={{ height: 120, width: '100%', maxWidth: 500 }}
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
         />
