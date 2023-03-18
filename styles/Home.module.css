@@ -41,6 +41,19 @@
   cursor: pointer;
 }
 
+.button-sec {
+  background-color: #cbcbcb;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button-sec:hover{
+  background-color: #b3b3b3;
+}
+
 .button:hover {
   background-color: #0056b3;
 }

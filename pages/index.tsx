@@ -47,7 +47,7 @@ export default function Home() {
           ))}
         </div>
 
-        <label>Prompt:</label>
+        <label style={{fontSize: 16, marginTop: 12}}>Prompt:</label>
         <textarea
           style={{ height: 120, width: 500 }}
           value={topic}
@@ -59,9 +59,14 @@ export default function Home() {
             Start Conversation
           </button>
 
-          {isLoading && <p>ChatGPT is talking to itself :)</p>}
+          {isLoading && <p style={{paddingTop: 6}}>ChatGPT is talking to itself :)</p>}
 
-          {!isLoading && !!conversation.length && <p>Conversation over :(</p>}
+          {!isLoading && !!conversation.length && (
+            <>
+              <button className={styles['button-sec']} onClick={() => setConversation([])}>Clear</button>
+              <p style={{paddingTop: 6}}>Conversation over :( </p>{" "}
+            </>
+          )}
         </div>
       </main>
     </div>
